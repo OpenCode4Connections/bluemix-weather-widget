@@ -1,0 +1,24 @@
+{
+  "extensions": [
+    {
+      "path": "communities",
+      "application": "Weather Widget Sample",
+      "payload": {
+        "include-files": [
+          "WeatherWidget/bluemixWeatherWidget.js"
+        ],
+        "match": {
+          "url": "communityUuid=[your-community-here]"
+        }
+      },
+      "name": "Weather Widget Extension",
+      "type": "com.ibm.customizer.ui"
+    }
+  ],
+  "name": "Weather Widget Sample",
+  "description": "Adds Weather Widget to a community, using a Bluemix XPages app leveraging Weather service",
+  "services": [
+    "Customizer"
+  ],
+  "title": "Weather Widget Sample"
+}

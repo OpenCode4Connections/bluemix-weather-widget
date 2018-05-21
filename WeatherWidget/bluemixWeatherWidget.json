@@ -7,6 +7,9 @@
         "include-files": [
           "WeatherWidget/bluemixWeatherWidget.js"
         ],
+        "include-repo": {
+          "name": "bluemix-weather-widget"
+         },
         "match": {
           "url": "communityUuid=[your-community-here]"
         }

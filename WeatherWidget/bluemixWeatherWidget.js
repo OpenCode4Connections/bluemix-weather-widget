@@ -66,4 +66,4 @@ var addWeatherWidget = function() {
            "</div>", col1DropZone, "first");
 };
 
-waitFor(addWeatherWidget(), dojo.byId("col1DropZone"));
+waitFor(addWeatherWidget, "#col1DropZone");

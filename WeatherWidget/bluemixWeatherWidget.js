@@ -25,45 +25,49 @@
 // @run-at       document-end
 //
 // ==/UserScript==
-
+  if (typeof(dojo) != "undefined") {
+    require(["dojo/domReady!"], function() {
 // utility function to let us wait for a specific element of the page to load...
-var waitFor = function(callback, elXpath, maxInter, waitTime) {
-  if (!maxInter) var maxInter = 300;  // number of intervals before expiring
-  if (!waitTime) var waitTime = 100;  // 1000=1 second
-  var waitInter = 0;  // current interval
-  var intId = setInterval( function() {
-    if (++waitInter >= maxInter) return;
-    if (typeof(dojo) == "undefined") return;
-    if (!dojo.query(elXpath, dojo.body()).length) return;
-    clearInterval(intId);
-    if (waitInter < maxInter) {
-      callback();
+      var waitFor = function(callback, elXpath, maxInter, waitTime) {
+        if (!maxInter) var maxInter = 300;  // number of intervals before expiring
+        if (!waitTime) var waitTime = 100;  // 1000=1 second
+        var waitInter = 0;  // current interval
+        var intId = setInterval( function() {
+          if (++waitInter >= maxInter) return;
+          if (typeof(dojo) == "undefined") return;
+          if (!dojo.query(elXpath, dojo.body()).length) return;
+          clearInterval(intId);
+          if (waitInter < maxInter) {
+            callback();
+          }
+        }, waitTime);
+      };
+
+      var addWeatherWidget = function() {
+          // Get first column dropzone
+          var col1DropZone = dojo.byId("col1DropZone");
+
+          // Add weather widget to community overview page
+          dojo.place("<div id='weather-widget-container' class='widgetContainer'>" +
+                 "<div id='weatherDropZone' class='target' role='presentation'>" +
+                 "<div id='weatherHeader' class='lotusWidget2'>" +
+                 "<h2 style='cursor: default'>" +
+                   "<span >Weather Forecast</span>" +
+                 "</h2>" +
+                 "<div id='weatherSubArea' style='-webkit-user-select: text;'>" +
+                 "<div id='weatherWidget'>" +
+                 "<div class='Content view'>" +
+                   "<iframe id='weatherFrame' style='width:100%;height:360px;' frameborder='0' src='https://xpages-fusion-alchemy.mybluemix.net/xpagesFusionAlchemy.nsf/weather.xsp'>" +
+                   "</iframe>" +
+                 "</div>" +
+                 "</div>" +
+                 "</div>" +
+                 "</div>" +
+                 "</div>" +
+                 "</div>", col1DropZone, "first");
+      };
+
+      waitFor(addWeatherWidget(), dojo.byId("col1DropZone"));
     }
-  }, waitTime);
-};
-
-var addWeatherWidget = function() {
-    // Get first column dropzone
-    var col1DropZone = dojo.byId("col1DropZone");
-
-    // Add weather widget to community overview page
-    dojo.place("<div id='weather-widget-container' class='widgetContainer'>" +
-           "<div id='weatherDropZone' class='target' role='presentation'>" +
-           "<div id='weatherHeader' class='lotusWidget2'>" +
-           "<h2 style='cursor: default'>" +
-             "<span >Weather Forecast</span>" +
-           "</h2>" +
-           "<div id='weatherSubArea' style='-webkit-user-select: text;'>" +
-           "<div id='weatherWidget'>" +
-           "<div class='Content view'>" +
-             "<iframe id='weatherFrame' style='width:100%;height:360px;' frameborder='0' src='https://xpages-fusion-alchemy.mybluemix.net/xpagesFusionAlchemy.nsf/weather.xsp'>" +
-             "</iframe>" +
-           "</div>" +
-           "</div>" +
-           "</div>" +
-           "</div>" +
-           "</div>" +
-           "</div>", col1DropZone, "first");
-};
-
-waitFor(addWeatherWidget(), dojo.byId("col1DropZone"));
+  );
+}
